@@ -1,5 +1,7 @@
 package com.codinftitans.backend.model;
 
+import com.codinftitans.backend.Enum.Role;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +22,7 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 }
