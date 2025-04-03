@@ -1,5 +1,6 @@
 package com.codinftitans.backend.controller;
 
+import com.codinftitans.backend.Enum.Role;
 import com.codinftitans.backend.dto.request.UserRequestDTO;
 import com.codinftitans.backend.dto.response.UserResponseDTO;
 import com.codinftitans.backend.model.User;
@@ -27,7 +28,7 @@ public class UserController {
     }
     @PostMapping("user/new")
     public User newUser(@RequestBody UserRequestDTO user){
-     return    userService.newUser(user);
+     return    userService.newUser(user, Role.ADMIN);
     }
     @DeleteMapping("user/{id}")
     public String deleteUser(@PathVariable UUID id){

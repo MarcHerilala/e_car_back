@@ -1,6 +1,8 @@
 package com.codinftitans.backend.controller;
 
+import com.codinftitans.backend.Enum.Role;
 import com.codinftitans.backend.dto.request.GoogleUserDTO;
+import com.codinftitans.backend.dto.request.UserRequestDTO;
 import com.codinftitans.backend.model.GoogleLoginRequest;
 import com.codinftitans.backend.model.LoginRequest;
 import com.codinftitans.backend.model.User;
@@ -48,6 +50,11 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password()));
         return tokenService.generateToken(authentication);
     }
+
+    @PostMapping("/register")
+    public User register(@RequestBody UserRequestDTO user){
+        return userService.newUser(user, Role.CLIENT);
+    }
     @PostMapping("/google")
     public ResponseEntity<String> googleAuth(@RequestBody GoogleLoginRequest request) throws Exception {
         if (request == null || request.idToken() == null) {
@@ -58,7 +65,7 @@ public class AuthController {
 
         GoogleUserDTO googleUser = googleAuthService.verifyIdToken(idToken);
         User user = userService.findOrCreateGoogleUser(googleUser);
-        // Créer un objet Authentication valide
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

@@ -27,14 +27,15 @@ public class UserService {
         return "deleted sucessfully";
     }
 
-    public User newUser(UserRequestDTO user){
+public User newUser(UserRequestDTO user,Role role){
         //String encodedPassword=passwordEncoder.encode(user.getPassword());
         user.setPassword("{noop}"+user.getPassword());
         User userToSave=modelMapper.map(user,User.class);
-
+        userToSave.setRole(role);
         return userRepository.save(userToSave);
 
     }
+
     public List<UserResponseDTO> findAll(){
         return  userRepository.findAll().stream().map(
                 user -> modelMapper.map(user,UserResponseDTO.class)
