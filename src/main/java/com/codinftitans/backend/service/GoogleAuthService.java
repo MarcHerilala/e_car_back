@@ -6,11 +6,12 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-
+@Service
 public class GoogleAuthService {
     private final String GOOGLE_CLIENT_ID=System.getenv("GOOGLE_CLIENT_ID");
     public GoogleUserDTO verifyIdToken(String idToken) throws GeneralSecurityException, IOException {

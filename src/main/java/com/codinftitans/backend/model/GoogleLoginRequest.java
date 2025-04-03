@@ -1,8 +1,10 @@
 package com.codinftitans.backend.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class GoogleLoginRequest {
-    private String idToken;
+
+public record GoogleLoginRequest(String idToken) {
+
 }
