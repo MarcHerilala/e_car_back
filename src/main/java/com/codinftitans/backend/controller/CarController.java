@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -57,7 +58,7 @@ public class CarController {
     public List<CarResponseDTO> pinnedCars(){
         return carService.pinnedCars();
     }
-
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     @PostMapping("/car/new")
     public CarResponseDTO newCar(@RequestBody CarRequestDTO carDTO){
         return carService.saveNewCar(carDTO);
@@ -66,6 +67,7 @@ public class CarController {
     public String pinCar(@PathVariable UUID id,@RequestParam("pin") boolean pin){
         return carService.pinCar(pin,id);
     }
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     @DeleteMapping("car/delete")
     public String deleteCar(@RequestParam("id") UUID carId){
         return carService.deleteById(carId);

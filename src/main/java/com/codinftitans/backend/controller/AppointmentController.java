@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
-
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @GetMapping("/appointments")
     public ResponseEntity<List<AppointmentResponseDTO>>findAll(){
         List<AppointmentResponseDTO> appointments=appointmentService.findAll();
@@ -27,6 +28,7 @@ public class AppointmentController {
         httpHeaders.add("X-Total-Count",String.valueOf(appointCount));
         return new ResponseEntity<>(appointments,httpHeaders, HttpStatus.OK);
     }
+    @PreAuthorize("hasAuthority('SCOPE_CLIENT')")
     @PostMapping("/appointment/new")
     public Appointment newAppointment(@RequestBody AppointmentRequestDTO appointment){
         return appointmentService.newAppointment(appointment);

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +27,12 @@ public class UserController {
         httpHeaders.add("X-Total-Count",String.valueOf(count));
         return new ResponseEntity<>(users,httpHeaders, HttpStatus.OK);
     }
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @PostMapping("user/new")
     public User newUser(@RequestBody UserRequestDTO user){
      return    userService.newUser(user, Role.ADMIN);
     }
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @DeleteMapping("user/{id}")
     public String deleteUser(@PathVariable UUID id){
         return userService.deleteUser(id);
