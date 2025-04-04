@@ -19,6 +19,7 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     UserService userService;
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     @GetMapping("/user")
     public ResponseEntity<List<UserResponseDTO> >findAll(){
         List<UserResponseDTO> users=userService.findAll();
