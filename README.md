@@ -42,6 +42,7 @@ This is the backend API for the E-Car Market application, built with Spring Boot
 - JWT for authentication
 - Google OAuth2
 - Maven
+- Docker
 
 ## API Documentation
 
@@ -70,12 +71,43 @@ MAIL_PWD=your_email_password
 GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
+## Running with Docker
+
+### Prerequisites
+- Docker installed on your machine
+- Docker Compose (optional, but recommended)
+
+### Using Docker Compose (Recommended)
+
+1. Create a `.env` file with your environment variables
+2. Run the application:
+   ```bash
+   docker-compose up
+   ```
+
+The API will be available at `http://localhost:8080`
+
+### Using Docker directly
+
+1. Build the Docker image:
+   ```bash
+   docker build -t ecar-backend .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 8080:8080 \
+     --env-file .env \
+     ecar-backend
+   ```
+
 ## Development
 
-To run the project locally:
+### Running Locally with Java
 
-1. Set up the required environment variables
-2. Run the following commands:
+1. Ensure you have Java 17 installed
+2. Set up the required environment variables
+3. Run the following commands:
    ```bash
    ./mvnw clean install
    ./mvnw spring-boot:run

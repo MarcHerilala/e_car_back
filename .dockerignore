@@ -1,0 +1,26 @@
+# Version control
+.git
+.gitignore
+
+# Build files
+target/
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Documentation
+README.md
