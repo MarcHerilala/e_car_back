@@ -10,11 +10,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class AppointmentBaseDTO {
-    private String name;
-    private String email;
+
     private String message;
-    private String contact;
     private Instant appointmentDate;
-    private String Status;
-    private UUID idCar;
+    private String status;
 }

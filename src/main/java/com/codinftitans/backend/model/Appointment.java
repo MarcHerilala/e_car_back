@@ -17,11 +17,12 @@ public class Appointment {
     @Id
             @GeneratedValue(strategy = GenerationType.UUID)
    private UUID id;
-
-   private String name;
-   private String email;
-   private String message;
-   private String contact;
+   @ManyToOne
+   @JoinColumn(name = "id_user",insertable = false,updatable = false,referencedColumnName = "id")
+   private User user;
+   @Column(name = "id_user")
+   private UUID idUser;
+    private String message;
    private Instant appointmentDate;
    private String Status;
     @ManyToOne
