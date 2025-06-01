@@ -28,6 +28,7 @@ public class AppointmentController {
         httpHeaders.add("X-Total-Count",String.valueOf(appointCount));
         return new ResponseEntity<>(appointments,httpHeaders, HttpStatus.OK);
     }
+    @PreAuthorize("hasAuthority('SCOPE_CLIENT')")
     @GetMapping("/appointment/{idUser}")
     public List<AppointmentResponseDTO> getAppointmentByUser(@PathVariable UUID idUser){
         return appointmentService.getAppointmentByUser(idUser);
