@@ -12,6 +12,6 @@ import java.util.UUID;
 @Data
 public class AppointmentResponseDTO extends AppointmentBaseDTO {
     private UUID id;
-    String carName;
 
+    private CarResponseDTO car;
 }

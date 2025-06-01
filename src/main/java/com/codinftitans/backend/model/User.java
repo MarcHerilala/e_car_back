@@ -1,12 +1,14 @@
 package com.codinftitans.backend.model;
 
 import com.codinftitans.backend.Enum.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -25,4 +27,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     //@Column(nullable = false)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    Set<Appointment> appointments;
 }

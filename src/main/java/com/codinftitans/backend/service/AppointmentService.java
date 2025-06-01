@@ -1,5 +1,6 @@
 package com.codinftitans.backend.service;
 
+import com.codinftitans.backend.dto.base.AppointmentBaseDTO;
 import com.codinftitans.backend.dto.request.AppointmentRequestDTO;
 import com.codinftitans.backend.dto.response.AppointmentResponseDTO;
 import com.codinftitans.backend.dto.response.CarResponseDTO;
@@ -30,22 +31,35 @@ public class AppointmentService {
         List<AppointmentResponseDTO> appointments=appointmentRepository.findAll()
                 .stream().map(appointment ->{
                     AppointmentResponseDTO appointmentResponse=mapper.map(appointment,AppointmentResponseDTO.class);
-                  appointmentResponse.setCarName(appointment.getCar().getModel());
                     return appointmentResponse;
                         }
                 ).toList();
        return  appointments;
     }
     public Appointment newAppointment(AppointmentRequestDTO appointment){
-        Appointment newApp=mapper.map(appointment,Appointment.class);
-        return appointmentRepository.save(newApp);
+        Appointment newAppointment=new Appointment();
+        newAppointment.setIdUser(appointment.getIdUser());
+        newAppointment.setIdCar(appointment.getIdCar());
+        newAppointment.setAppointmentDate(appointment.getAppointmentDate());
+        newAppointment.setMessage(appointment.getMessage());
+        newAppointment.setStatus(appointment.getStatus());
+        appointmentRepository.save(newAppointment);
 
+        return newAppointment;
+    }
+    public List<AppointmentResponseDTO> getAppointmentByUser(UUID idUser){
+
+        return appointmentRepository.getAppointmentByUser(idUser).stream()
+                .map(appointment -> {
+                    AppointmentResponseDTO appointmentResponseDTO=mapper.map(appointment,AppointmentResponseDTO.class);
+                return  appointmentResponseDTO;
+                }).toList();
     }
     @Transactional
     public String updateStatus(String value, UUID id){
         Optional<Appointment> appointment=appointmentRepository.findById(id);
-        String email=appointment.get().getEmail();
-        String textToSend="Chere "+appointment.get().getName()+"\n," +
+        String email=appointment.get().getUser().getEmail();
+        String textToSend="Chere "+appointment.get().getUser().getName()+"\n," +
                 "Nous avons le plaisir de vous informé que le rendez-vous avec la voiture "+
                 appointment.get().getCar().getModel()+" " +
                 "prevu pour la " +

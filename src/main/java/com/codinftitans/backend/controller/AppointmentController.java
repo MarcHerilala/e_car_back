@@ -29,6 +29,11 @@ public class AppointmentController {
         return new ResponseEntity<>(appointments,httpHeaders, HttpStatus.OK);
     }
     @PreAuthorize("hasAuthority('SCOPE_CLIENT')")
+    @GetMapping("/appointment/{idUser}")
+    public List<AppointmentResponseDTO> getAppointmentByUser(@PathVariable UUID idUser){
+        return appointmentService.getAppointmentByUser(idUser);
+    }
+    @PreAuthorize("hasAuthority('SCOPE_CLIENT')")
     @PostMapping("/appointment/new")
     public Appointment newAppointment(@RequestBody AppointmentRequestDTO appointment){
         return appointmentService.newAppointment(appointment);
