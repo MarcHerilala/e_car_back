@@ -26,8 +26,8 @@ public class GoogleAuthService {
         }
         GoogleIdToken.Payload payload = verifiedIdToken.getPayload();
         return new GoogleUserDTO(
-                payload.getEmail(),
                 (String) payload.get("name"),
+                payload.getEmail(),
                 (String) payload.get("picture")
         );
     }
