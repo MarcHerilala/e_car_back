@@ -22,7 +22,7 @@ public class Appointment {
    private User user;
    @Column(name = "id_user")
    private UUID idUser;
-    private String message;
+   private String message;
    private Instant appointmentDate;
    private String Status;
     @ManyToOne

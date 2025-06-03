@@ -1,10 +1,7 @@
 package com.codinftitans.backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -12,9 +9,12 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
+
 @Entity
 @Table(name = "car")
 public class Car implements Serializable {
